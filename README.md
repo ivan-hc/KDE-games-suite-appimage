@@ -26,7 +26,7 @@ To install the version for 32-bit systems:
 
     sudo /opt/kdegames/remove
 # Known issues
-- Knetwalk doesn't work, this is a [known issue](https://www.google.com/search?channel=crow5&client=firefox-b-d&q=module+%22org.kde.games.core%22+is+not+installed+++++++import+org.kde.games.core+0.1+as+KgCore)
+- The following games did not work due to a missing "org.kde.games.core" module error: `knetwalk` (this seems to be a [known issue](https://www.google.com/search?channel=crow5&client=firefox-b-d&q=module+%22org.kde.games.core%22+is+not+installed+++++++import+org.kde.games.core+0.1+as+KgCore)) `kbreakout` and `kreversi`. I'm still investigating.
 
 ------------------------------------
 # These and more scripts will be available on my new repository, at [ivan-hc/AM-application-manager](https://github.com/ivan-hc/AM-application-manager).
