@@ -1,0 +1,49 @@
+name: Release KDE Games suite Appimage
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: build
+      run: |
+        wget https://raw.githubusercontent.com/ivan-hc/KDE-games-suite-appimage/main/kdegames
+        chmod a+x ./kdegames
+        sudo ./kdegames
+        mkdir dist
+        VERSION=$(curl -s https://packages.debian.org/stable/kdegames | grep "Package: kdegames" | cut -c 26- | rev | cut -c 2- | rev)
+        mv /opt/kdegames/kdegames dist/KDE_Games_suite-$VERSION-x86_64.AppImage
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v1.0.0
+      with:
+        name: kdegames-x86_64.AppImage
+        path: 'dist'
+        
+  release:
+      needs: [build]
+      runs-on: ubuntu-latest
+
+      steps:
+        - uses: actions/download-artifact@v1
+          with:
+            name: kdegames-x86_64.AppImage
+
+        - name: release
+          uses: marvinpinto/action-automatic-releases@latest
+          with:
+            title: Continuous build
+            automatic_release_tag: continuous
+            prerelease: false
+            draft: false
+            files: |
+              kdegames-x86_64.AppImage
+            repo_token: ${{ secrets.GITHUB_TOKEN }}
