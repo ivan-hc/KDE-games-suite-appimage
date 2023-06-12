@@ -16,12 +16,13 @@ Get the latest version from [here](https://github.com/ivan-hc/KDE-games-suite-ap
     chmod a+x ./KDEgames-suite*.AppImage
     ./KDEgames-suite*.AppImage "$GAME"
 
-### Download and install KDEgames for 32bit systems
+### Install KDEgames for 32bit systems
 This repository also provides an installation script for the x86 systems:
 
     wget https://raw.githubusercontent.com/ivan-hc/KDEGAMES-Suite-AppImage/main/kdegames32
     chmod a+x ./kdegames32
     sudo ./kdegames32
+Since there is no 32bit "`libunionpreload`" some games may not work.
 
 ------------------------------------
 ## More installation scripts are available in the new and more complete database of the AppImage packages, [ivan-hc/AM-application-manager](https://github.com/ivan-hc/AM-application-manager).
