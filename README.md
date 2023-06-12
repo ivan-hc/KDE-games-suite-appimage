@@ -1,30 +1,29 @@
 # KDEGAMES-Suite-AppImage
-Debian Stable's full suite of KDE games in one AppImage
+This is the AppImage that bundles all the games o KDE from Debian Stable!
 
-This repository provides the script to create and install the latest version of the KDE GAMES suite from Debian Stable, and an AppImage ready to be used.
+You can easilly integrate and install it using [AM Application Manager](https://github.com/ivan-hc/AM-application-manager) or [AppMan](https://github.com/ivan-hc/AppMan).
 
-This version is only a sample.
+### Download (64bit)
+Get the latest version from [here](https://github.com/ivan-hc/KDE-games-suite-appimage/releases/tag/continuous).
 
-Furter versions can be easily managed by installing [AM Application Manager](https://github.com/ivan-hc/AM-application-manager).
-# How to integrate KDEGAMES AppImage into the system
-### Installation
-To download and install KDEGAMES Suite for x86_64 with all its launchers and icons:
+### Build (64bit)
 
-    wget https://raw.githubusercontent.com/ivan-hc/KDEGAMES-Suite-AppImage/main/kdegames
-    chmod a+x ./kdegames
-    sudo ./kdegames
-To install the version for 32-bit systems:
+    wget https://raw.githubusercontent.com/ivan-hc/KDE-games-suite-appimage/main/kdegames
+    chmod a+x kdegames
+    ./kdegames
+### Usage
+
+    chmod a+x ./KDEgames-suite*.AppImage
+    ./KDEgames-suite*.AppImage "$GAME"
+
+### Download and install KDEgames for 32bit systems
+This repository also provides an installation script for the x86 systems:
 
     wget https://raw.githubusercontent.com/ivan-hc/KDEGAMES-Suite-AppImage/main/kdegames32
     chmod a+x ./kdegames32
     sudo ./kdegames32
 
-### Update
-
-    /opt/kdegames/AM-updater
-### Uninstall
-
-    sudo /opt/kdegames/remove
-
 ------------------------------------
-# These and more scripts will be available on my new repository, at [ivan-hc/AM-application-manager](https://github.com/ivan-hc/AM-application-manager).
+## More installation scripts are available in the new and more complete database of the AppImage packages, [ivan-hc/AM-application-manager](https://github.com/ivan-hc/AM-application-manager).
+
+# Visit https://portable-linux-apps.github.io for more info.
