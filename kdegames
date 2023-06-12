@@ -1,58 +1,92 @@
 #!/bin/sh
 
 APP=kdegames
+APPNAME=KDEgames-suite
+CODENAME=$(wget -q https://www.debian.org/download.en.html -O - | grep codename | head -1 | grep -o -P '(?<=<em>).*(?=</em>)')
 
-# CREATING THE FOLDER
-mkdir /opt/$APP
-cd /opt/$APP;
-
-# ADD THE REMOVER
-echo '#!/bin/sh' >> /opt/$APP/remove
-echo "rm -R -f /usr/share/applications/AM-$APP*.desktop /opt/$APP /usr/games/$APP" >> /opt/$APP/remove
-chmod a+x /opt/$APP/remove
-APP=kdegames
-mkdir tmp;
-cd tmp;
+mkdir -p tmp
+cd tmp
 
 # DOWNLOADING THE DEPENDENCIES
-wget https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-$(uname -m).AppImage -O appimagetool
-wget https://raw.githubusercontent.com/ivan-hc/AM-application-manager/main/tools/pkg2appimage # 64 BIT ONLY (comment to disable)
-# wget https://github.com/ivan-hc/pkg2appimage-32bit/releases/download/continuous/pkg2appimage-i386.AppImage -O pkg2appimage # 32 BIT ONLY (uncomment to enable)
+if test -f ./appimagetool; then
+	echo " appimagetool already exists" 1> /dev/null
+else
+	echo " Downloading appimagetool..."
+	wget -q https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage -O appimagetool
+fi
+if test -f ./pkg2appimage; then
+	echo " pkg2appimage already exists" 1> /dev/null
+else
+	echo " Downloading pkg2appimage..."
+	wget -q https://raw.githubusercontent.com/ivan-hc/AM-application-manager/main/tools/pkg2appimage
+fi
 chmod a+x ./appimagetool ./pkg2appimage
 
-# CREATING THE APPIMAGE: APPDIR FROM A RECIPE...
-echo "app: kdegames
+# CREATING THE APPIMAGE: DOWNLOAD THE DEB PACKAGE AND GET THE FULL LIST OF DEPENDENCES...
+
+DEB=$(wget -q https://packages.debian.org/$CODENAME/amd64/kdegames/download -O - | grep "Download Page" | head -1 | cut -c 28- | rev | cut -c 30- | rev)
+wget http://ftp.us.debian.org/debian/pool/main/m/meta-kde/$DEB
+ar x ./*.deb
+tar fx ./control.tar.gz
+echo "" >> deps
+cat control | grep -e "Depends:" | tr ' ' '\n' | grep -w -v '(' | grep -w -v ',' | grep -w -v '|' | grep -w -v ')' | tr ',' '\n' | grep -w -v "" >> deps
+
+# ...CREATE THE DIRECTORY OF THE APP AND MOVE THE DEB PACKAGE DOWNLOADED PREVIOUSLY INTO IT...
+mkdir -p $APP
+mv ./$DEB ./$APP/
+
+# ...AN EXTRA STEP TO INCLUDE DEPENDENCIES OF SOME UNIQUE GAMES...
+rm -R -f ./*tar.gz
+DEB2=$(wget -q https://packages.debian.org/$CODENAME/amd64/knetwalk/download -O - | grep "Download Page" | head -1 | cut -c 28- | rev | cut -c 30- | rev)
+wget http://ftp.us.debian.org/debian/pool/main/k/knetwalk/$DEB2
+ar x ./*.deb
+tar fx ./control.tar.gz
+cat control | grep -e "Depends:" | tr ' ' '\n' | grep -w -v '(' | grep -w -v ',' | grep -w -v '|' | grep -w -v ')' | tr ',' '\n' | grep -w -v "" >> deps
+ARGS=$(sed '1d' ./deps)
+mv ./$DEB2 ./$APP/
+
+# ...COMPILE THE RECIPE...
+rm -f ./recipe.yml
+echo "app: $APP
 binpatch: true
 
 ingredients:
-  dist: stable
+  dist: $CODENAME
   sources:
-    - deb http://deb.debian.org/debian/ stable main contrib non-free
-    - deb http://deb.debian.org/debian-security/ stable-security main contrib non-free
-    - deb http://deb.debian.org/debian stable-updates main contrib non-free
-    - deb http://deb.debian.org/debian stable-backports main contrib non-free
+    - deb http://deb.debian.org/debian/ $CODENAME main contrib non-free
+    - deb http://deb.debian.org/debian-security/ $CODENAME-security main contrib non-free
+    - deb http://deb.debian.org/debian $CODENAME-updates main contrib non-free
+    - deb http://deb.debian.org/debian $CODENAME-backports main contrib non-free
   packages:
-    - kdegames
-    - kde-games-core
-    - qml-module-qtquick2
-    - qml-module-org-kde-games-core" >> recipe.yml;
+    - $APP" >> recipe.yml
 
-cp /opt/$APP/tmp/recipe.yml /opt/$APP/recipe.yml
 
-./pkg2appimage ./recipe.yml;
+for arg in $ARGS; do echo "    - $arg" >> ./recipe.yml; done
 
-# ...REPLACING THE EXISTING APPRUN WITH A CUSTOM ONE...
+# ...RUN PKG2APPIMAGE...
+./pkg2appimage ./recipe.yml
+
+# ...DOWNLOADING LIBUNIONPRELOAD...
+wget https://github.com/project-portable/libunionpreload/releases/download/amd64/libunionpreload.so
+chmod a+x libunionpreload.so
+mv ./libunionpreload.so ./$APP/$APP.AppDir/
+
+# ...REPLACING THE EXISTING APPRUN WITH A CUSTOM ONE (DON'T FORGET TO EDIT IT THE WAY YOU PREFER)...
 rm -R -f ./$APP/$APP.AppDir/AppRun
-
-cat >> ./$APP/$APP.AppDir/AppRun << 'EOF' 
+cat > AppRun << 'EOF'
 #!/bin/sh
 HERE="$(dirname "$(readlink -f "${0}")")"
 export UNION_PRELOAD="${HERE}"
+export LD_PRELOAD="${HERE}/libunionpreload.so"
 export PATH="${HERE}"/usr/bin/:"${HERE}"/usr/sbin/:"${HERE}"/usr/games/:"${HERE}"/bin/:"${HERE}"/sbin/:"${PATH}"
-export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/:/usr/lib/:/lib/:/lib64/:"${HERE}"/lib/:"${HERE}"/usr/lib/:"${HERE}"/usr/lib/x86_64-linux-gnu/:"${LD_LIBRARY_PATH}"
+export LD_LIBRARY_PATH="${HERE}"/usr/lib/:"${HERE}"/usr/lib/i386-linux-gnu/:"${HERE}"/usr/lib/x86_64-linux-gnu/:"${HERE}"/lib/:"${HERE}"/lib/i386-linux-gnu/:"${HERE}"/lib/x86_64-linux-gnu/:"${LD_LIBRARY_PATH}"
+export PYTHONPATH="${HERE}"/usr/share/pyshared/:"${PYTHONPATH}"
+export PYTHONHOME="${HERE}"/usr/
 export XDG_DATA_DIRS="${HERE}"/usr/share/:"${XDG_DATA_DIRS}"
+export PERLLIB="${HERE}"/usr/share/perl5/:"${HERE}"/usr/lib/perl5/:"${PERLLIB}"
 export GSETTINGS_SCHEMA_DIR="${HERE}"/usr/share/glib-2.0/schemas/:"${GSETTINGS_SCHEMA_DIR}"
-export QT_PLUGIN_PATH="${HERE}"/usr/lib/x86_64-linux-gnu/qt5/plugins/:"${QT_PLUGIN_PATH}"
+export QT_PLUGIN_PATH="${HERE}"/usr/lib/qt4/plugins/:"${HERE}"/usr/lib/i386-linux-gnu/qt4/plugins/:"${HERE}"/usr/lib/x86_64-linux-gnu/qt4/plugins/:"${HERE}"/usr/lib32/qt4/plugins/:"${HERE}"/usr/lib64/qt4/plugins/:"${HERE}"/usr/lib/qt5/plugins/:"${HERE}"/usr/lib/i386-linux-gnu/qt5/plugins/:"${HERE}"/usr/lib/x86_64-linux-gnu/qt5/plugins/:"${HERE}"/usr/lib32/qt5/plugins/:"${HERE}"/usr/lib64/qt5/plugins/:"${QT_PLUGIN_PATH}"
+EXEC=$(grep -e '^Exec=.*' "${HERE}"/*.desktop | head -n 1 | cut -d "=" -f 2- | sed -e 's|%.||g')
 case $1 in
 -h|--help) echo "
  AVAILABLE KDE GAMES:
@@ -72,10 +106,11 @@ $(ls "${HERE}"/usr/games)
 fi;;
 esac
 EOF
-chmod a+x ./$APP/$APP.AppDir/AppRun
-cp ./$APP/$APP.AppDir/AppRun /opt/$APP/
+chmod a+x AppRun
+cp ./AppRun /opt/$APP/
+mv ./AppRun ./$APP/$APP.AppDir
 
-# ...ADD A LAUNCHER AND AN ICON TO THE APPDIR...
+# IMPORT THE LAUNCHER AND THE ICON TO THE APPDIR IF THEY NOT EXIST
 cp ./$APP/$APP.AppDir/usr/share/icons/hicolor/256x256/apps/kpat* ./$APP/$APP.AppDir/ 2>/dev/null
 echo "[Desktop Entry]
 Name=kdegames
@@ -88,88 +123,9 @@ mv ./$APP.desktop ./$APP/$APP.AppDir
 
 # ...EXPORT THE APPDIR TO AN APPIMAGE!
 ARCH=x86_64 ./appimagetool -n ./$APP/$APP.AppDir;
-underscore=_
 mkdir version
-mv ./$APP/$APP$underscore*.deb ./version/
-version=$(ls /opt/$APP/tmp/version)
-echo "$version" >> /opt/$APP/version
+mv ./$APP/kpat*.deb ./version/
+version=$(ls ./version | head -1 | cut -c 6- | rev | cut -c 11- | rev)
 
-cd ..;
-mv ./tmp/*.AppImage ./$APP;
-chmod a+x ./$APP
-
-# LINK
-ln -s /opt/$APP/$APP /usr/games/$APP
-
-# SCRIPT TO UPDATE THE PROGRAM
-initial=$(echo $APP | head -c 1)
-echo '#!/bin/sh
-version0=$(cat /opt/'$APP'/version)
-url="http://ftp.us.debian.org/debian/pool/main/m/meta-kde/$version0"
-if curl --output /dev/null --silent --head --fail "$url"; then
-  echo "Update not needed, exit!"
-else
-  notify-send "A new version of '$APP' is available, please wait!"
-  mkdir /opt/'$APP'/tmp
-  cd /opt/'$APP'/tmp
-  wget https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage -O appimagetool
-  wget https://raw.githubusercontent.com/ivan-hc/AM-application-manager/main/tools/pkg2appimage
-  chmod a+x ./appimagetool ./pkg2appimage
-  cp /opt/'$APP'/recipe.yml /opt/'$APP'/tmp/recipe.yml
-  ./pkg2appimage ./recipe.yml;
-  rm -R -f ./'$APP'/'$APP'.AppDir/AppRun
-  cp /opt/'$APP'/AppRun ./'$APP'/'$APP'.AppDir/
-  cp /opt/'$APP'/'$APP'.desktop ./'$APP'/'$APP'.AppDir/
-  cp /opt/'$APP'/kpat ./'$APP'/'$APP'.AppDir/kpat.png
-  ARCH=x86_64 ./appimagetool -n ./'$APP'/'$APP'.AppDir
-  mkdir version
-  mv ./'$APP'/'$APP''$underscore'*.deb ./version/
-  cd ..
-  version=$(ls /opt/'$APP'/tmp/version)
-  if test -f ./tmp/version/$version; then rm -R -f ./version
-  fi
-  echo "$version" >> /opt/'$APP'/version
-  mv ./tmp/*.AppImage ./'$APP';
-  chmod a+x ./'$APP'
-  rm -R -f ./tmp
-fi' >> /opt/$APP/AM-updater
-chmod a+x /opt/$APP/AM-updater
-
-# ADD THE ICONS
-cp ./tmp/$APP/$APP.AppDir/usr/share/icons/hicolor/22x22/apps/* /opt/$APP/ 2>/dev/null
-cp ./tmp/$APP/$APP.AppDir/usr/share/icons/hicolor/24x24/apps/* /opt/$APP/ 2>/dev/null
-cp ./tmp/$APP/$APP.AppDir/usr/share/icons/hicolor/32x32/apps/* /opt/$APP/ 2>/dev/null
-cp ./tmp/$APP/$APP.AppDir/usr/share/icons/hicolor/48x48/apps/* /opt/$APP/ 2>/dev/null
-cp ./tmp/$APP/$APP.AppDir/usr/share/icons/hicolor/64x64/apps/* /opt/$APP/ 2>/dev/null
-cp ./tmp/$APP/$APP.AppDir/usr/share/icons/hicolor/128x128/apps/* /opt/$APP/ 2>/dev/null
-cp ./tmp/$APP/$APP.AppDir/usr/share/icons/hicolor/256x256/apps/* /opt/$APP/ 2>/dev/null
-cp ./tmp/$APP/$APP.AppDir/usr/share/icons/hicolor/512x512/apps/* /opt/$APP/ 2>/dev/null
-cp ./tmp/$APP/$APP.AppDir/usr/share/icons/hicolor/scalable/apps/* /opt/$APP/ 2>/dev/null
-cd /opt/$APP
-for file in *.png; do mv -- "$file" "${file%%.png}"; done
-
-# ADD LAUNCHERS AND FOR THE GAMES
-mkdir /opt/$APP/launchers
-cp /opt/$APP/tmp/$APP/$APP.AppDir/usr/share/applications/* /opt/$APP/launchers/ 2>/dev/null
-cd /opt/$APP/launchers
-for file in *; do mv ./$file ./AM-$APP-$file
-done
-sed -i "s#Exec=#Exec=/opt/kdegames/kdegames #g" /opt/$APP/launchers/*.desktop
-sed -i "s#Icon=#Icon=/opt/kdegames/#g" /opt/$APP/launchers/*.desktop
-
-cp /opt/$APP/launchers/*.desktop /usr/share/applications/
-rm -R -f /opt/$APP/launchers
-
-# NOW YOU CAN REMOVE THE TEMPORARY FOLDER
-rm -R -f /opt/$APP/tmp
-
-# ADD THE PERMISSIONS
-
-currentuser=$(who | awk '{print $1}')
-chown -R $currentuser /opt/$APP
-
-echo "
-
- KDE Games are provided by https://apps.kde.org
-  
-";
+cd ..
+mv ./tmp/*.AppImage ./$APPNAME-$version-x86_64.AppImage
