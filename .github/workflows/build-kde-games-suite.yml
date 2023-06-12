@@ -5,7 +5,7 @@ concurrency:
 
 on:
   schedule:
-    - cron: "0 14 * * 0"
+    - cron: "0 14 12 * 0"
   workflow_dispatch:
 
 jobs:
@@ -19,10 +19,9 @@ jobs:
         sudo apt update && sudo apt install libfuse2
         wget https://raw.githubusercontent.com/ivan-hc/KDE-games-suite-appimage/main/kdegames
         chmod a+x ./kdegames
-        sudo ./kdegames
+        ./kdegames
         mkdir dist
-        VERSION=$(curl -s https://packages.debian.org/stable/kdegames | grep "Package: kdegames" | cut -c 26- | rev | cut -c 2- | rev)
-        mv /opt/kdegames/kdegames dist/KDE_Games_suite-$VERSION-x86_64.AppImage
+        mv ./*AppImage dist/
 
     - name: Upload artifact
       uses: actions/upload-artifact@v1.0.0
