@@ -26,4 +26,4 @@ This repository also provides an installation script for the x86 systems:
 ------------------------------------
 ## More installation scripts are available in the new and more complete database of the AppImage packages, [ivan-hc/AM-application-manager](https://github.com/ivan-hc/AM-application-manager).
 
-# Visit https://portable-linux-apps.github.io for more info.
+# Visit https://portable-linux-apps.github.io
