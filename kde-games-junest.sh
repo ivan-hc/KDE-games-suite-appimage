@@ -1306,7 +1306,7 @@ rm -R -f ./$APP.AppDir/.junest/var/* #REMOVE ALL PACKAGES DOWNLOADED WITH THE PA
 # ADDITIONAL REMOVALS
 #rm -R -f ./$APP.AppDir/.junest/usr/lib/dri
 rm -R -f ./$APP.AppDir/.junest/usr/lib/libgo.so*
-rm -R -f ./$APP.AppDir/.junest/usr/lib/libLLVM*
+#rm -R -f ./$APP.AppDir/.junest/usr/lib/libLLVM*
 rm -R -f ./$APP.AppDir/.junest/usr/lib/libOSMesa.so*
 rm -R -f ./$APP.AppDir/.junest/usr/lib/python*
 
