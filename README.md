@@ -1,30 +1,23 @@
-# KDEGAMES-Suite-AppImage
-This is the AppImage that bundles all the games o KDE from Debian Stable!
+This is an unofficial AppImage that bundles all the games fo KDE from Arch Linux using JuNest!
 
-You can easilly integrate and install it using [AM Application Manager](https://github.com/ivan-hc/AM-application-manager) or [AppMan](https://github.com/ivan-hc/AppMan).
+-------------------------
+### *How to integrate this AppImage into the system*
+The easier way install at system level the AppImages is to use "AM", alternativelly you can use "AppMan" to install them locally and without root privileges. Learn more about:
+- "AM" https://github.com/ivan-hc/AM-application-manager
+- AppMan https://github.com/ivan-hc/AM-application-manager
 
-### Download (64bit)
-Get the latest version from [here](https://github.com/ivan-hc/KDE-games-suite-appimage/releases/tag/continuous).
+or visit the site ***https://portable-linux-apps.github.io***
 
-### Build (64bit)
+-------------------------
+### Reduce the size of the JuNest based Appimage
+You can analyze the presence of excess files inside the AppImage by extracting it:
 
-    wget https://raw.githubusercontent.com/ivan-hc/KDE-games-suite-appimage/main/kdegames
-    chmod a+x kdegames
-    ./kdegames
-### Usage
+    ./*.AppImage --appimage-extract
+To start your tests, run the "AppRun" script inside the "squashfs-root" folder extracted from the AppImage:
 
-    chmod a+x ./KDEgames-suite*.AppImage
-    ./KDEgames-suite*.AppImage "$GAME"
+    ./squashfs-root/AppRun
 
-### Install KDEgames for 32bit systems
-This repository also provides an installation script for the x86 systems:
-
-    wget https://raw.githubusercontent.com/ivan-hc/KDEGAMES-Suite-AppImage/main/kdegames32
-    chmod a+x ./kdegames32
-    sudo ./kdegames32
-Since there is no 32bit "`libunionpreload`" some games may not work.
-
-------------------------------------
-## More installation scripts are available in the new and more complete database of the AppImage packages, [ivan-hc/AM-application-manager](https://github.com/ivan-hc/AM-application-manager).
-
-# Visit https://portable-linux-apps.github.io
+-------------------------
+### *Special Credits*
+- JuNest https://github.com/fsquillace/junest
+- Arch Linux https://archlinux.org
