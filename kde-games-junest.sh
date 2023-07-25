@@ -3,7 +3,7 @@
 # NAME OF THE APP BY REPLACING "SAMPLE"
 APP=kde-games
 BIN="$APP" #CHANGE THIS IF THE NAME OF THE BINARY IS DIFFERENT FROM "$APP" (for example, the binary of "obs-studio" is "obs")
-DEPENDENCES=""
+DEPENDENCES="python"
 #BASICSTUFF="binutils gzip"
 #COMPILERS="gcc"
 
@@ -1308,7 +1308,7 @@ rm -R -f ./$APP.AppDir/.junest/var/* #REMOVE ALL PACKAGES DOWNLOADED WITH THE PA
 rm -R -f ./$APP.AppDir/.junest/usr/lib/libgo.so*
 #rm -R -f ./$APP.AppDir/.junest/usr/lib/libLLVM*
 rm -R -f ./$APP.AppDir/.junest/usr/lib/libOSMesa.so*
-rm -R -f ./$APP.AppDir/.junest/usr/lib/python*
+#rm -R -f ./$APP.AppDir/.junest/usr/lib/python*
 
 # REMOVE THE INBUILT HOME
 rm -R -f ./$APP.AppDir/.junest/home
