@@ -1,4 +1,53 @@
-This is an unofficial AppImage that bundles all the games fo KDE from Arch Linux using JuNest!
+*This is an unofficial AppImage that bundles the following KDE games from Arch Linux using JuNest!*
+
+```
+    bomber
+    bovo
+    granatier
+    kajongg
+    kapman
+    katomic
+    kblackbox
+    kblocks
+    kbounce	
+    kbreakout
+    kdiamond
+    kfourinline
+    kgoldrunner
+    kigo
+    killbots
+    kiriki
+    kjumpingcube
+    klickety
+    klines
+    kmahjongg
+    kmines
+    knavalbattle
+    knetwalk
+    knights
+    kolf
+    kollision
+    konquest
+    kpat
+    kreversi
+    kshisen
+    ksirk
+    ksnakeduel
+    kspaceduel
+    ksquares
+    ksudoku
+    ktuberling
+    kubrick
+    lskat
+    palapeli
+    picmi
+```
+
+*Previously it was based on Debian Stable, but due to GLIBC compatibility it was replaced by JuNest in 2023, July 25th*
+
+Compiling these so-called "ArchImages" is easier and the Arch Linux base is a guarantee of continuity being one of the most important GNU/Linux distributions, supported by a large community that offers more guarantees of continuity, while usually unofficial PPAs are mantained by one or two people and built as a third-party repository for Ubuntu, a distro that is more inclined to push Snaps as official packaging format instead of DEBs.
+
+Learn more about ArchImage packaging at https://github.com/ivan-hc/ArchImage
 
 -------------------------
 ### *How to integrate this AppImage into the system*
