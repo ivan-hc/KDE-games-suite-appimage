@@ -4,7 +4,6 @@
     bomber
     bovo
     granatier
-    kajongg
     kapman
     katomic
     kblackbox
