@@ -3,7 +3,7 @@
 # NAME OF THE APP BY REPLACING "SAMPLE"
 APP=kde-games
 BIN="$APP" #CHANGE THIS IF THE NAME OF THE BINARY IS DIFFERENT FROM "$APP" (for example, the binary of "obs-studio" is "obs")
-DEPENDENCES="python python-twisted"
+DEPENDENCES=""
 #BASICSTUFF="binutils gzip"
 #COMPILERS="gcc"
 
@@ -108,7 +108,6 @@ echo "
     bomber
     bovo
     granatier
-    kajongg
     kapman
     katomic
     kblackbox
@@ -146,7 +145,7 @@ echo "
     palapeli
     picmi
 ";;
-bomber|bovo|granatier|kajongg|kapman|katomic|kblackbox|kblocks|kbounce|kbreakout|kdiamond|kfourinline|kgoldrunner|kigo|killbots|kiriki|kjumpingcube|klickety|klines|kmahjongg|kmines|knavalbattle|knetwalk|knights|kolf|kollision|konquest|kpat|kreversi|kshisen|ksirk|ksnakeduel|kspaceduel|ksquares|ksudoku|ktuberling|kubrick|lskat|palapeli|picmi) 
+bomber|bovo|granatier|kapman|katomic|kblackbox|kblocks|kbounce|kbreakout|kdiamond|kfourinline|kgoldrunner|kigo|killbots|kiriki|kjumpingcube|klickety|klines|kmahjongg|kmines|knavalbattle|knetwalk|knights|kolf|kollision|konquest|kpat|kreversi|kshisen|ksirk|ksnakeduel|kspaceduel|ksquares|ksudoku|ktuberling|kubrick|lskat|palapeli|picmi) 
 $HERE/.local/share/junest/bin/junest proot -n -b "--bind=/home --bind=/home/$(echo $USER) --bind=/media --bind=/mnt --bind=/opt --bind=/usr/lib/locale --bind=/etc/fonts" 2> /dev/null -- $1 "$@"
 ;;
 *)
@@ -1308,7 +1307,12 @@ rm -R -f ./$APP.AppDir/.junest/var/* #REMOVE ALL PACKAGES DOWNLOADED WITH THE PA
 rm -R -f ./$APP.AppDir/.junest/usr/lib/libgo.so*
 #rm -R -f ./$APP.AppDir/.junest/usr/lib/libLLVM*
 rm -R -f ./$APP.AppDir/.junest/usr/lib/libOSMesa.so*
-#rm -R -f ./$APP.AppDir/.junest/usr/lib/python*
+rm -R -f ./$APP.AppDir/.junest/usr/lib/python*
+rm -R -f ./$APP.AppDir/.junest/usr/bin/kajongg*
+rm -R -f ./$APP.AppDir/.junest/usr/share/applications/org.kde.kajongg.desktop
+rm -R -f ./$APP.AppDir/.junest/usr/share/kajongg
+rm -R -f ./$APP.AppDir/.junest/usr/share/locale/*/*/kajongg*
+rm -R -f ./$APP.AppDir/.junest/usr/share/metainfo/org.kde.kajongg.appdata.xml
 
 # REMOVE THE INBUILT HOME
 rm -R -f ./$APP.AppDir/.junest/home
