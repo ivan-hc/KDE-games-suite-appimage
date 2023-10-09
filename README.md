@@ -48,6 +48,8 @@ Compiling these so-called "ArchImages" is easier and the Arch Linux base is a gu
 
 Learn more about ArchImage packaging at https://github.com/ivan-hc/ArchImage
 
+*NOTE: the 32-bit version for the old i386 architectures is available at [ivan-hc/32-bit-AppImage-packages-database](https://github.com/ivan-hc/32-bit-AppImage-packages-database) and is based on Debian Stable, download it from [here](https://github.com/ivan-hc/32-bit-AppImage-packages-database/releases/tag/kdegames).*
+
 -------------------------
 ### *How to integrate this AppImage into the system*
 The easier way install at system level the AppImages is to use "AM", alternativelly you can use "AppMan" to install them locally and without root privileges. Learn more about:
