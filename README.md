@@ -42,6 +42,13 @@
     picmi
 ```
 
+## Usage
+```
+./*.AppImage name-of-the-game-from-the-list-above
+```
+
+## History
+
 *Previously it was based on Debian Stable, but due to GLIBC compatibility it was replaced by JuNest in 2023, July 25th*
 
 Compiling these so-called "ArchImages" is easier and the Arch Linux base is a guarantee of continuity being one of the most important GNU/Linux distributions, supported by a large community that offers more guarantees of continuity, while usually unofficial PPAs are mantained by one or two people and built as a third-party repository for Ubuntu, a distro that is more inclined to push Snaps as official packaging format instead of DEBs.
