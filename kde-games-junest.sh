@@ -70,24 +70,6 @@ Icon=kpat
 Type=Application
 Categories=Game;" >> ./$APP.AppDir/$APP.desktop
 
-# TEST IF THE DESKTOP FILE AND THE ICON ARE IN THE ROOT OF THE FUTURE APPIMAGE (./*AppDir/*)
-if test -f ./$APP.AppDir/*.desktop; then
-	echo "The .desktop file is available in $APP.AppDir/"
-else 
-	cat <<-HEREDOC >> "./$APP.AppDir/$APP.desktop"
-	[Desktop Entry]
-	Version=1.0
-	Type=Application
-	Name=KDE Games Suite
-	Comment=
-	Exec=AppRun
-	Icon=tux
-	Terminal=true
-	StartupNotify=true
-	HEREDOC
-	wget https://raw.githubusercontent.com/Portable-Linux-Apps/Portable-Linux-Apps.github.io/main/favicon.ico -O ./$APP.AppDir/tux.png
-fi
-
 # ...AND FINALLY CREATE THE APPRUN, IE THE MAIN SCRIPT TO RUN THE APPIMAGE!
 # EDIT THE FOLLOWING LINES IF YOU THINK SOME ENVIRONMENT VARIABLES ARE MISSING
 cat >> ./$APP.AppDir/AppRun << 'EOF'
