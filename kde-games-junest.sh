@@ -77,7 +77,7 @@ cat >> ./$APP.AppDir/AppRun << 'EOF'
 HERE="$(dirname "$(readlink -f $0)")"
 export UNION_PRELOAD=$HERE
 export JUNEST_HOME=$HERE/.junest
-export PATH=$HERE/.local/share/junest/bin/:$PATH
+export PATH=$PATH:$HERE/.local/share/junest/bin
 mkdir -p $HOME/.cache
 case $1 in
 '')
