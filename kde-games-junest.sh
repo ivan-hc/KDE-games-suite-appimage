@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # NAME OF THE APP BY REPLACING "SAMPLE"
-APP=kde-games
+APP=kde-games-meta
 BIN="$APP" #CHANGE THIS IF THE NAME OF THE BINARY IS DIFFERENT FROM "$APP" (for example, the binary of "obs-studio" is "obs")
 DEPENDENCES="ca-certificates bomber bovo granatier kapman katomic kblackbox kblocks kbounce kbreakout kdiamond kfourinline kgoldrunner kigo killbots kiriki kjumpingcube klickety klines kmahjongg kmines knavalbattle knetwalk knights kolf kollision konquest kpat kreversi kshisen ksirk ksnakeduel kspaceduel ksquares ksudoku ktuberling kubrick lskat palapeli picmi kvantum libkdegames"
 #BASICSTUFF="binutils gzip"
@@ -390,4 +390,4 @@ mkdir -p ./$APP.AppDir/.junest/run/user
 
 # CREATE THE APPIMAGE
 ARCH=x86_64 ./appimagetool -n ./$APP.AppDir
-mv ./*AppImage ./"$(cat ./$APP.AppDir/*.desktop | grep 'Name=' | head -1 | cut -c 6- | sed 's/ /-/g')"_"$VERSION"-archimage3-x86_64.AppImage
+mv ./*AppImage ./KDE-GAMES-SUITE_"$VERSION"-archimage3-x86_64.AppImage
