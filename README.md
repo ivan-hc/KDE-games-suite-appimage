@@ -40,6 +40,7 @@
     lskat
     palapeli
     picmi
+    skladnik
 ```
 
 ## Usage
