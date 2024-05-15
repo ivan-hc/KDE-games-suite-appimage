@@ -3,7 +3,7 @@
 # NAME OF THE APP BY REPLACING "SAMPLE"
 APP=kde-games-meta
 BIN="$APP" #CHANGE THIS IF THE NAME OF THE BINARY IS DIFFERENT FROM "$APP" (for example, the binary of "obs-studio" is "obs")
-DEPENDENCES="ca-certificates bomber bovo granatier kajongg kapman katomic kblackbox kblocks kbounce kbreakout kdiamond kfourinline kgoldrunner kigo killbots kiriki kjumpingcube klickety klines kmahjongg kmines knavalbattle knetwalk knights kolf kollision konquest kpat kreversi kshisen ksirk ksnakeduel kspaceduel ksquares ksudoku ktuberling kubrick lskat palapeli picmi skladnik kvantum libkmahjongg libkdegames libxcursor python python-qtpy"
+DEPENDENCES="ca-certificates bomber bovo granatier kajongg kapman katomic kblackbox kblocks kbounce kbreakout kdiamond kfourinline kgoldrunner kigo killbots kiriki kjumpingcube klickety klines kmahjongg kmines knavalbattle knetwalk knights kolf kollision konquest kpat kreversi kshisen ksirk ksnakeduel kspaceduel ksquares ksudoku ktuberling kubrick lskat palapeli picmi skladnik kvantum libkmahjongg libkdegames libxcursor python python-qtpy python-packaging"
 #BASICSTUFF="binutils gzip"
 #COMPILERS="base-devel"
 
@@ -97,6 +97,7 @@ sed -i 's/LANG=${LANG:-C}/LANG=$LANG/g' ./.junest/etc/profile.d/locale.sh
 #./.local/share/junest/bin/junest -- sudo locale-gen
 
 # ...ADD THE ICON AND THE DESKTOP FILE AT THE ROOT OF THE APPDIR...
+rm -f ./$APP.desktop
 cp ./.junest/usr/share/icons/hicolor/256x256/apps/kpat* ./ 2>/dev/null
 echo "[Desktop Entry]
 Name=kdegames
