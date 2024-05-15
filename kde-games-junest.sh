@@ -3,7 +3,7 @@
 # NAME OF THE APP BY REPLACING "SAMPLE"
 APP=kde-games-meta
 BIN="$APP" #CHANGE THIS IF THE NAME OF THE BINARY IS DIFFERENT FROM "$APP" (for example, the binary of "obs-studio" is "obs")
-DEPENDENCES="ca-certificates bomber bovo granatier kajongg kapman katomic kblackbox kblocks kbounce kbreakout kdiamond kfourinline kgoldrunner kigo killbots kiriki kjumpingcube klickety klines kmahjongg kmines knavalbattle knetwalk knights kolf kollision konquest kpat kreversi kshisen ksirk ksnakeduel kspaceduel ksquares ksudoku ktuberling kubrick lskat palapeli picmi skladnik kvantum libkmahjongg libkdegames libxcursor"
+DEPENDENCES="ca-certificates bomber bovo granatier kajongg kapman katomic kblackbox kblocks kbounce kbreakout kdiamond kfourinline kgoldrunner kigo killbots kiriki kjumpingcube klickety klines kmahjongg kmines knavalbattle knetwalk knights kolf kollision konquest kpat kreversi kshisen ksirk ksnakeduel kspaceduel ksquares ksudoku ktuberling kubrick lskat palapeli picmi skladnik kvantum libkmahjongg libkdegames libxcursor python"
 #BASICSTUFF="binutils gzip"
 #COMPILERS="base-devel"
 
@@ -398,4 +398,4 @@ if test -f ./*.AppImage; then
 	rm -R -f ./*archimage*.AppImage
 fi
 ARCH=x86_64 VERSION=$(./appimagetool -v | grep -o '[[:digit:]]*') ./appimagetool -s ./$APP.AppDir
-mv ./*AppImage ./KDE-GAMES-SUITE_"$VERSION"-archimage3.4-1-x86_64.AppImage
+mv ./*AppImage ./KDE-GAMES-SUITE_"$VERSION"-archimage3.4-2-x86_64.AppImage
