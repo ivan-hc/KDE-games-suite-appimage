@@ -3,8 +3,8 @@
 # NAME OF THE APP BY REPLACING "SAMPLE"
 APP=kde-games-meta
 BIN="$APP" #CHANGE THIS IF THE NAME OF THE BINARY IS DIFFERENT FROM "$APP" (for example, the binary of "obs-studio" is "obs")
-DEPENDENCES="ca-certificates bomber bovo granatier kajongg kapman katomic kblackbox kblocks kbounce kbreakout kdiamond kfourinline kgoldrunner kigo killbots kiriki kjumpingcube klickety klines kmahjongg kmines knavalbattle knetwalk knights kolf kollision konquest kpat kreversi kshisen ksirk ksnakeduel kspaceduel ksquares ksudoku ktuberling kubrick lskat palapeli picmi skladnik kvantum libkmahjongg libkdegames libxcursor python python-qtpy python-packaging"
-#BASICSTUFF="binutils gzip"
+DEPENDENCES="ca-certificates bomber bovo granatier kajongg kapman katomic kblackbox kblocks kbounce kbreakout kdiamond kfourinline kgoldrunner kigo killbots kiriki kjumpingcube klickety klines kmahjongg kmines knavalbattle knetwalk knights kolf kollision konquest kpat kreversi kshisen ksirk ksnakeduel kspaceduel ksquares ksudoku ktuberling kubrick lskat palapeli picmi skladnik kvantum libkmahjongg libkdegames libxcursor python python-qtpy python-packaging karchive kcompletion kconfig kconfigwidgets kcoreaddons kcrash ki18n kio kitemviews knotifications kwidgetsaddons kxmlgui libkdegames qhull python-gobject"
+#BASICSTUFF="binutils debugedit gzip"
 #COMPILERS="base-devel"
 
 # CREATE THE APPDIR (DON'T TOUCH THIS)...
@@ -246,9 +246,9 @@ rm -R -f ./$APP.AppDir/.junest/usr/man #APPIMAGES ARE NOT MENT TO HAVE MAN COMMA
 rm -R -f ./$APP.AppDir/.junest/var/* #REMOVE ALL PACKAGES DOWNLOADED WITH THE PACKAGE MANAGER
 
 # SAVE FILES USING KEYWORDS
-BINSAVED="certificates SAVEBINSPLEASE" # Enter here keywords to find and save in /usr/bin
-SHARESAVED="certificates k qt" # Enter here keywords or file/folder names to save in both /usr/share and /usr/lib
-LIBSAVED="pk p11 alsa jack pipewire pulse GL gl libdrm libedit libLLVM libpciaccess libsensors Qt qt" # Enter here keywords or file/folder names to save in /usr/lib
+BINSAVED="certificates Qt qt gif Gif png rgb svg Svg mkdir cat chmod" # Enter here keywords to find and save in /usr/bin
+SHARESAVED="certificates k Qt qt uic rgb Rgb" # Enter here keywords or file/folder names to save in both /usr/share and /usr/lib
+LIBSAVED="pk p11 alsa jack pipewire pulse GL gl libdrm libedit libLLVM libpciaccess libsensors Qt qt gif Gif png svg Svg cmake uic" # Enter here keywords or file/folder names to save in /usr/lib
 
 # STEP 2, FUNCTION TO SAVE THE BINARIES IN /usr/bin THAT ARE NEEDED TO MADE JUNEST WORK, PLUS THE MAIN BINARY/BINARIES OF THE APP
 # IF YOU NEED TO SAVE MORE BINARIES, LIST THEM IN THE "BINSAVED" VARIABLE. COMMENT THE LINE "_savebins" IF YOU ARE NOT SURE.
@@ -334,19 +334,19 @@ function _mvlibs(){
 	mv ./save/* ./$APP.AppDir/.junest/usr/lib/
 }
 
-_binlibs 2> /dev/null
+#_binlibs 2> /dev/null
 
-_include_swrast_dri 2> /dev/null
+#_include_swrast_dri 2> /dev/null
 
-_libkeywords 2> /dev/null
+#_libkeywords 2> /dev/null
 
-_liblibs 2> /dev/null
-_liblibs 2> /dev/null
-_liblibs 2> /dev/null
-_liblibs 2> /dev/null
-_liblibs 2> /dev/null
+#_liblibs 2> /dev/null
+#_liblibs 2> /dev/null
+#_liblibs 2> /dev/null
+#_liblibs 2> /dev/null
+#_liblibs 2> /dev/null
 
-_mvlibs 2> /dev/null
+#_mvlibs 2> /dev/null
 
 rmdir save
 
@@ -369,7 +369,7 @@ function _saveshare(){
 	mv ./save/* ./$APP.AppDir/.junest/usr/share/
  	rmdir save
 }
-_saveshare 2> /dev/null
+#_saveshare 2> /dev/null
 
 # RSYNC THE CONTENT OF THE APP'S PACKAGE
 rm -R -f ./base/.*
@@ -382,6 +382,7 @@ rsync -av ./deps/* ./$APP.AppDir/.junest/
 # ADDITIONAL REMOVALS
 #rm -R -f ./$APP.AppDir/.junest/usr/lib/libLLVM-* #INCLUDED IN THE COMPILATION PHASE, CAN SOMETIMES BE EXCLUDED FOR DAILY USE
 rm -R -f ./$APP.AppDir/.junest/usr/lib/python*/__pycache__/* #IF PYTHON IS INSTALLED, REMOVING THIS DIRECTORY CAN SAVE SEVERAL MEGABYTES
+rm -R -f ./$APP.AppDir/.junest/usr/lib/gcc
 
 # REMOVE THE INBUILT HOME
 rm -R -f ./$APP.AppDir/.junest/home
