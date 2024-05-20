@@ -2,7 +2,7 @@
 
 APP=kdegames
 APPNAME=KDEgames-suite
-CODENAME=$(wget -q https://www.debian.org/download.en.html -O - | grep codename | head -1 | grep -o -P '(?<=<em>).*(?=</em>)')
+CODENAME="stable"
 
 mkdir -p tmp
 cd tmp
@@ -12,7 +12,7 @@ if test -f ./appimagetool; then
 	echo " appimagetool already exists" 1> /dev/null
 else
 	echo " Downloading appimagetool..."
-	wget -q https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage -O appimagetool
+	wget -q "$(wget -q https://api.github.com/repos/probonopd/go-appimage/releases -O - | sed 's/"/ /g; s/ /\n/g' | grep -o 'https.*continuous.*tool.*86_64.*mage$')" -O appimagetool
 fi
 if test -f ./pkg2appimage; then
 	echo " pkg2appimage already exists" 1> /dev/null
@@ -58,7 +58,9 @@ ingredients:
     - deb http://deb.debian.org/debian $CODENAME-updates main contrib non-free
     - deb http://deb.debian.org/debian $CODENAME-backports main contrib non-free
   packages:
-    - $APP" >> recipe.yml
+    - $APP
+    - kajongg
+    - palapeli-data" >> recipe.yml
 
 
 for arg in $ARGS; do echo "    - $arg" >> ./recipe.yml; done
@@ -107,7 +109,7 @@ fi;;
 esac
 EOF
 chmod a+x AppRun
-cp ./AppRun /opt/$APP/
+
 mv ./AppRun ./$APP/$APP.AppDir
 
 # IMPORT THE LAUNCHER AND THE ICON TO THE APPDIR IF THEY NOT EXIST
@@ -118,11 +120,11 @@ Exec=AppRun
 Icon=kpat
 Type=Application
 Categories=Game;" >> $APP.desktop
-cp ./$APP.desktop /opt/$APP/
+
 mv ./$APP.desktop ./$APP/$APP.AppDir
 
 # ...EXPORT THE APPDIR TO AN APPIMAGE!
-ARCH=x86_64 ./appimagetool -n ./$APP/$APP.AppDir;
+ARCH=x86_64 VERSION=$(./appimagetool -v | grep -o '[[:digit:]]*') ./appimagetool -s ./$APP/$APP.AppDir
 mkdir version
 mv ./$APP/kpat*.deb ./version/
 version=$(ls ./version | head -1 | cut -c 6- | rev | cut -c 11- | rev)
