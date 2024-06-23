@@ -206,7 +206,7 @@ echo "
     skladnik
 ";;
 bomber|bovo|granatier|kajongg|kapman|katomic|kblackbox|kblocks|kbounce|kbreakout|kdiamond|kfourinline|kgoldrunner|kigo|killbots|kiriki|kjumpingcube|klickety|klines|kmahjongg|kmines|knavalbattle|knetwalk|knights|kolf|kollision|konquest|kpat|kreversi|kshisen|ksirk|ksnakeduel|kspaceduel|ksquares|ksudoku|ktuberling|kubrick|lskat|palapeli|picmi|skladnik) 
-$HERE/.local/share/junest/bin/junest -n -b "$BINDS" -- $1 "$@"
+$HERE/.local/share/junest/bin/junest -n -b "$BINDS" -- "$@"
 ;;
 *)
 echo " $1 does not exists, see -h";;
@@ -314,7 +314,7 @@ echo -e "-----------------------------------------------------------\n"
 # SAVE FILES USING KEYWORDS
 BINSAVED="certificates SAVEBINSPLEASE" # Enter here keywords to find and save in /usr/bin
 SHARESAVED="certificates SAVESHAREPLEASE" # Enter here keywords or file/folder names to save in both /usr/share and /usr/lib
-LIBSAVED="pk p11 alsa cmake jack pipewire pulse qt Qt qtpy" # Enter here keywords or file/folder names to save in /usr/lib
+LIBSAVED="pk p11 alsa cmake jack libtdb libltdl libimobiledevice libusbmuxd libvorbisfile pipewire pulse qt Qt qtpy" # Enter here keywords or file/folder names to save in /usr/lib
 
 # STEP 2, FUNCTION TO SAVE THE BINARIES IN /usr/bin THAT ARE NEEDED TO MADE JUNEST WORK, PLUS THE MAIN BINARY/BINARIES OF THE APP
 # IF YOU NEED TO SAVE MORE BINARIES, LIST THEM IN THE "BINSAVED" VARIABLE. COMMENT THE LINE "_savebins" IF YOU ARE NOT SURE.
