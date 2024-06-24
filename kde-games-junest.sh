@@ -3,8 +3,10 @@
 # NAME OF THE APP BY REPLACING "SAMPLE"
 APP=kde-games-meta
 BIN="$APP" #CHANGE THIS IF THE NAME OF THE BINARY IS DIFFERENT FROM "$APP" (for example, the binary of "obs-studio" is "obs")
+qtv="6"
 DEPENDENCES="ca-certificates bomber bovo granatier kajongg kapman katomic kblackbox kblocks kbounce kbreakout kdiamond kfourinline kgoldrunner kigo killbots kiriki kjumpingcube klickety klines kmahjongg kmines knavalbattle knetwalk knights kolf kollision konquest kpat kreversi kshisen ksirk ksnakeduel kspaceduel ksquares ksudoku ktuberling kubrick lskat palapeli picmi skladnik \
-karchive kconfigwidgets kdbusaddons kitemviews kvantum libkdegames libkmahjongg python python-packaging python-gobject python-qtpy "
+karchive kconfigwidgets kdbusaddons kitemviews kvantum libkdegames libkmahjongg python python-packaging python-gobject python-qtpy \
+pyside$qtv python-pyqt$qtv shiboken$qtv qt$qtv-tools python-pyqt$qtv-sip python-twisted python-incremental python-attrs python-typing_extensions python-zope-interface python-constantly " # required by kajongg
 #BASICSTUFF="binutils debugedit gzip"
 #COMPILERS="base-devel"
 
@@ -467,4 +469,4 @@ if test -f ./*.AppImage; then
 	rm -R -f ./*archimage*.AppImage
 fi
 ARCH=x86_64 VERSION=$(./appimagetool -v | grep -o '[[:digit:]]*') ./appimagetool -s ./"$APP".AppDir
-mv ./*AppImage ./KDE-GAMES-SUITE_"$VERSION"-archimage3.4.2-x86_64.AppImage
+mv ./*AppImage ./KDE-GAMES-SUITE_"$VERSION"-archimage3.4.2-1-x86_64.AppImage
