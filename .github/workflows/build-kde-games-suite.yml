@@ -18,7 +18,7 @@ jobs:
       if: always()
       run: |
         sudo apt update
-        sudo apt install libfuse2
+        sudo apt install libfuse2 desktop-file-utils
         wget https://raw.githubusercontent.com/ivan-hc/KDE-games-suite-appimage/main/kde-games-junest.sh
         chmod a+x ./kde-games-junest.sh
         ./kde-games-junest.sh
