@@ -1,5 +1,6 @@
-*This is an unofficial AppImage that bundles the following KDE games from Arch Linux using JuNest!*
+This is an unofficial AppImage that bundles the following KDE games from Arch Linux!
 
+These are all games included, you can see the same list by running the AppImage using the `-h` option.
 ```
     bomber
     bovo
@@ -43,21 +44,16 @@
     picmi
     skladnik
 ```
+you can see the same list by running the AppImage using the `-h` option.
+
+From here you can download the scripts to build from Debian Stable and on top of [JuNest](https://github.com/fsquillace/junest), the lightweight Arch Linux based distro that runs, without root privileges, on top of any other Linux distro.
+
+If you are an Nvidia user, for the JuNest-based build, hardware accelleration is provided by [Conty](https://github.com/Kron4ek/Conty). At first start it will install Nvidia drivers locally to allow the builtin Arch Linux container the use of hardware accelleration.
 
 ## Usage
 ```
 ./*.AppImage name-of-the-game-from-the-list-above
 ```
-
-## History
-
-*Previously it was based on Debian Stable, but due to GLIBC compatibility it was replaced by JuNest in 2023, July 25th*
-
-Compiling these so-called "ArchImages" is easier and the Arch Linux base is a guarantee of continuity being one of the most important GNU/Linux distributions, supported by a large community that offers more guarantees of continuity, while usually unofficial PPAs are mantained by one or two people and built as a third-party repository for Ubuntu, a distro that is more inclined to push Snaps as official packaging format instead of DEBs.
-
-Learn more about ArchImage packaging at https://github.com/ivan-hc/ArchImage
-
-*NOTE: the 32-bit version for the old i386 architectures is available at [ivan-hc/32-bit-AppImage-packages-database](https://github.com/ivan-hc/32-bit-AppImage-packages-database) and is based on Debian Stable, download it from [here](https://github.com/ivan-hc/32-bit-AppImage-packages-database/releases/tag/kdegames).*
 
 ------------------------------------------------------------------------
 
