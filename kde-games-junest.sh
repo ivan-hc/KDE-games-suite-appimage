@@ -494,7 +494,9 @@ echo -e "-----------------------------------------------------------\n"
 
 # ADDITIONAL REMOVALS
 _remove_some_bloatwares
-#rm -R -f ./"$APP".AppDir/.junest/usr/lib/libLLVM-* #INCLUDED IN THE COMPILATION PHASE, CAN SOMETIMES BE EXCLUDED FOR DAILY USE
+rm -R -f ./"$APP".AppDir/.junest/usr/lib/libgo.so*
+rm -R -f ./"$APP".AppDir/.junest/usr/lib/libgallium*
+rm -R -f ./"$APP".AppDir/.junest/usr/lib/libLLVM-* #INCLUDED IN THE COMPILATION PHASE, CAN SOMETIMES BE EXCLUDED FOR DAILY USE
 rm -R -f ./"$APP".AppDir/.junest/usr/lib/python*/__pycache__/* #IF PYTHON IS INSTALLED, REMOVING THIS DIRECTORY CAN SAVE SEVERAL MEGABYTES
 strip --strip-debug ./$APP.AppDir/.junest/usr/lib/*
 strip --strip-unneeded ./$APP.AppDir/.junest/usr/bin/*
