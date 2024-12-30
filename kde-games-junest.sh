@@ -6,6 +6,7 @@ BIN="$APP" #CHANGE THIS IF THE NAME OF THE BINARY IS DIFFERENT FROM "$APP" (for 
 qtv="6"
 DEPENDENCES="ca-certificates bomber bovo granatier kajongg kapman katomic kblackbox kblocks kbounce kbreakout kdiamond kfourinline kgoldrunner kigo killbots kiriki kjumpingcube klickety klines kmahjongg kmines knavalbattle knetwalk knights kolf kollision konquest kpat kreversi kshisen ksirk ksnakeduel kspaceduel ksquares ksudoku ktuberling kubrick lskat palapeli picmi skladnik \
 karchive kconfigwidgets kdbusaddons kitemviews kvantum libkdegames libkmahjongg python python-packaging python-gobject python-qtpy \
+qt6ct \
 pyside$qtv python-pyqt$qtv shiboken$qtv qt$qtv-tools python-pyqt$qtv-sip python-twisted python-incremental python-attrs python-typing_extensions python-zope-interface python-constantly " # required by kajongg
 #BASICSTUFF="binutils debugedit gzip"
 #COMPILERS="base-devel"
@@ -343,7 +344,7 @@ rm -f ./packages
 function _remove_some_bloatwares() {
 	echo Y | rm -R -f ./"$APP".AppDir/.cache/yay/*
 	find ./"$APP".AppDir/.junest/usr/share/doc/* -not -iname "*$BIN*" -a -not -name "." -delete #REMOVE ALL DOCUMENTATION NOT RELATED TO THE APP
-	find ./"$APP".AppDir/.junest/usr/share/locale/*/*/* -not -iname "*$BIN*" -a -not -name "." -delete #REMOVE ALL ADDITIONAL LOCALE FILES
+	#find ./"$APP".AppDir/.junest/usr/share/locale/*/*/* -not -iname "*$BIN*" -a -not -name "." -delete #REMOVE ALL ADDITIONAL LOCALE FILES
 	rm -R -f ./"$APP".AppDir/.junest/etc/makepkg.conf
 	rm -R -f ./"$APP".AppDir/.junest/etc/pacman.conf
 	rm -R -f ./"$APP".AppDir/.junest/usr/include #FILES RELATED TO THE COMPILER
