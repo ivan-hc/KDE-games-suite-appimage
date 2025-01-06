@@ -521,4 +521,4 @@ if test -f ./*.AppImage; then
 	rm -R -f ./*archimage*.AppImage
 fi
 ARCH=x86_64 ./appimagetool --comp zstd --mksquashfs-opt -Xcompression-level --mksquashfs-opt 20 ./$APP.AppDir
-mv ./*AppImage ./KDE-GAMES-SUITE_"$VERSION"-archimage4-x86_64.AppImage
+mv ./*AppImage ./KDE-GAMES-SUITE_"$VERSION"-archimage4.1-x86_64.AppImage
