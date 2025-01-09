@@ -520,5 +520,6 @@ rm -f ./"$APP".AppDir/.junest/etc/localtime && touch ./"$APP".AppDir/.junest/etc
 if test -f ./*.AppImage; then
 	rm -R -f ./*archimage*.AppImage
 fi
-ARCH=x86_64 ./appimagetool --comp zstd --mksquashfs-opt -Xcompression-level --mksquashfs-opt 20 ./$APP.AppDir
-mv ./*AppImage ./KDE-GAMES-SUITE_"$VERSION"-archimage4.1-x86_64.AppImage
+ARCH=x86_64 ./appimagetool --comp zstd --mksquashfs-opt -Xcompression-level --mksquashfs-opt 20 \
+	-u "gh-releases-zsync|$GITHUB_REPOSITORY_OWNER|KDE-games-suite-appimage|continuous|*x86_64.AppImage.zsync" \
+	./"$APP".AppDir KDE-GAMES-SUITE_"$VERSION"-archimage4.1-x86_64.AppImage
