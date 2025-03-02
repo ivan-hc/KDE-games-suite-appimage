@@ -1,0 +1,1 @@
+https://github.com/ivan-hc/KDE-games-suite-appimage/releases/download/continuous/KDE-games-suite_24.12-2-archimage4.3-x86_64.AppImage
