@@ -4,7 +4,7 @@ APP=kde-games-meta
 BIN="$APP" #CHANGE THIS IF THE NAME OF THE BINARY IS DIFFERENT FROM "$APP" (for example, the binary of "obs-studio" is "obs")
 qtv="6"
 kde_meta="bomber bovo granatier kajongg kapman katomic kblackbox kblocks kbounce kbreakout \
-kdiamond kfourinline kgoldrunner kigo killbots kiriki kjumpingcube klickety klines \
+kdiamond kfourinline kgoldrunner khangman kigo killbots kiriki kjumpingcube klickety klines \
 kmahjongg kmines knavalbattle knetwalk knights kolf kollision konquest kpat kreversi \
 kshisen ksirk ksnakeduel kspaceduel ksquares ksudoku ktuberling kubrick lskat palapeli \
 picmi skladnik"
@@ -271,6 +271,7 @@ echo "
     kdiamond
     kfourinline
     kgoldrunner
+    khangman
     kigo
     killbots
     kiriki
@@ -300,7 +301,7 @@ echo "
     picmi
     skladnik
 ";;
-bomber|bovo|granatier|kajongg|kapman|katomic|kblackbox|kblocks|kbounce|kbreakout|kdiamond|kfourinline|kgoldrunner|kigo|killbots|kiriki|kjumpingcube|klickety|klines|kmahjongg|kmines|knavalbattle|knetwalk|knights|kolf|kollision|konquest|kpat|kreversi|kshisen|ksirk|ksnakeduel|kspaceduel|ksquares|ksudoku|ktuberling|kubrick|lskat|palapeli|picmi|skladnik) 
+bomber|bovo|granatier|kajongg|kapman|katomic|kblackbox|kblocks|kbounce|kbreakout|kdiamond|kfourinline|kgoldrunner|khangman|kigo|killbots|kiriki|kjumpingcube|klickety|klines|kmahjongg|kmines|knavalbattle|knetwalk|knights|kolf|kollision|konquest|kpat|kreversi|kshisen|ksirk|ksnakeduel|kspaceduel|ksquares|ksudoku|ktuberling|kubrick|lskat|palapeli|picmi|skladnik) 
 _JUNEST_CMD -- "$@"
 ;;
 *)
