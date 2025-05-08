@@ -11,7 +11,8 @@ picmi skladnik"
 kajongg_deps="pyside$qtv python-pyqt$qtv shiboken$qtv qt$qtv-tools python-pyqt$qtv-sip \
 python-twisted python-incremental python-attrs python-typing_extensions python-zope-interface python-constantly"
 khangman_deps="kirigami-addons kcmutils5 libkeduvocdocument libimobiledevice libimobiledevice-glue libplist libusbmuxd libxcb"
-DEPENDENCES="$kde_meta $khangman_deps karchive kconfigwidgets kdbusaddons kitemviews libkdegames libkmahjongg python python-packaging python-gobject python-qtpy qt6ct $kajongg_deps"
+palapeli_deps="libtool libvorbis tdb"
+DEPENDENCES="$kde_meta $khangman_deps $palapeli_deps karchive kconfigwidgets kdbusaddons kitemviews libkdegames libkmahjongg python python-packaging python-gobject python-qtpy qt6ct $kajongg_deps"
 
 #BASICSTUFF="binutils debugedit gzip"
 #COMPILERS="base-devel"
