@@ -10,7 +10,8 @@ kshisen ksirk ksnakeduel kspaceduel ksquares ksudoku ktuberling kubrick lskat pa
 picmi skladnik"
 kajongg_deps="pyside$qtv python-pyqt$qtv shiboken$qtv qt$qtv-tools python-pyqt$qtv-sip \
 python-twisted python-incremental python-attrs python-typing_extensions python-zope-interface python-constantly"
-DEPENDENCES="$kde_meta karchive kconfigwidgets kdbusaddons kitemviews libkdegames libkmahjongg python python-packaging python-gobject python-qtpy qt6ct $kajongg_deps"
+khangman_deps="kirigami-addons kcmutils5 libkeduvocdocument libimobiledevice libimobiledevice-glue libplist libusbmuxd libxcb"
+DEPENDENCES="$kde_meta $khangman_deps karchive kconfigwidgets kdbusaddons kitemviews libkdegames libkmahjongg python python-packaging python-gobject python-qtpy qt6ct $kajongg_deps"
 
 #BASICSTUFF="binutils debugedit gzip"
 #COMPILERS="base-devel"
@@ -24,7 +25,7 @@ SHARESAVED="SAVESHAREPLEASE"
 lib_audio_keywords="alsa jack pipewire pulse"
 lib_browser_launcher="gio-launch-desktop libasound.so libatk-bridge libatspi libcloudproviders libdb- libdl.so libedit libepoxy libgtk-3.so.0 libjson-glib libnssutil libpthread.so librt.so libtinysparql libwayland-cursor libX11-xcb.so libxapp-gtk3-module.so libXcursor libXdamage libXi.so libxkbfile.so libXrandr p11 pk"
 LIBSAVED="libogg.so libvorbisenc.so libFLAC.so libmpg123.so libmp3lame.so libgomp.so libQt libpxbackend \
-libnghttp libidn libssh libpsl.so qt libxcb-cursor.so libxcb-util.so EGL GLX svg $lib_audio_keywords $lib_browser_launcher"
+libnghttp libidn libssh libpsl.so qt libxcb EGL GLX svg $lib_audio_keywords $lib_browser_launcher"
 
 [ -n "$lib_browser_launcher" ] && DEPENDENCES="$DEPENDENCES xapp hicolor-icon-theme"
 
