@@ -1,1 +1,2 @@
 https://github.com/ivan-hc/KDE-games-suite-appimage/releases/download/continuous/KDE-games-suite_25.04-1-archimage4.3-x86_64.AppImage
+Sat Jul 12 01:22:42 UTC 2025
